@@ -24,11 +24,34 @@ public class LinkList {
         linkList.addNode(4);
         linkList.addNode(7);
         linkList.addNode(11);
-        linkList.printLink();
-        linkList.deleteNode(2);
-        linkList.printLink();
-        linkList.reverseLink();
-        linkList.printLink();
+        linkList.addNode(13);
+        linkList.addNode(7);
+//        linkList.printLink();
+//        linkList.deleteNode(2);
+//        linkList.printLink();
+//        linkList.reverseLink();
+//        linkList.printLink();
+
+        NodeOfLink n1 = new NodeOfLink(1);
+        NodeOfLink n2 = new NodeOfLink(4);
+        NodeOfLink n3 = new NodeOfLink(6);
+        NodeOfLink n4 = new NodeOfLink(7);
+        NodeOfLink n5 = new NodeOfLink(9);
+        NodeOfLink n6 = new NodeOfLink(12);
+        NodeOfLink n7 = new NodeOfLink(14);
+        NodeOfLink n8 = new NodeOfLink(9);
+
+        n1.next=n2;
+        n2.next=n3;
+        n3.next=n4;
+        n4.next=n5;
+		n5.next=n6;
+		n6.next=n7;
+		n7.next=n8;
+		n8.next=n6;
+//		linkList.printLink(n1);
+        System.out.println(linkList.hasLeap(n1).data);
+        System.out.println(linkList.getIntersectEntry(n1).data);
     }
 
     //添加结点
@@ -91,8 +114,8 @@ public class LinkList {
     /**
      * 打印链表
      */
-    public void printLink() {
-        NodeOfLink temp = head;
+    public void printLink(NodeOfLink n1) {
+        NodeOfLink temp = n1;
         System.out.print("打印链表：");
         while (temp != null) {
             System.out.print(temp.data + "  ");
@@ -118,6 +141,43 @@ public class LinkList {
             pNode = pNext;
         }
         this.head = revPreNode;
+    }
+
+    /**
+     * 查找链表中是否有环
+     */
+    public NodeOfLink hasLeap(NodeOfLink n1) {
+        NodeOfLink one = n1;
+        NodeOfLink two = n1;
+        while (one == null || two == null) {
+            return null;
+        }
+        while (null != two.next && null != two.next.next) {
+            one = one.next;
+            two = two.next.next;
+            if (one == two) {
+                return two;
+            }
+        }
+        return null;
+    }
+    /**
+     * 获取环入口
+     *
+     */
+
+    public NodeOfLink getIntersectEntry(NodeOfLink n1) {
+        NodeOfLink meet = hasLeap(n1);
+        if (meet == null) {
+            return null;
+        }
+        NodeOfLink p = meet;
+        NodeOfLink q = n1;
+        while (p != q) {
+            p = p.next;
+            q = q.next;
+        }
+        return p;
     }
 
 
