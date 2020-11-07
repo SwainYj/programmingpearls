@@ -1,5 +1,10 @@
 package com.swain.programmingpearls;
 
+import lombok.Synchronized;
+
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.ReentrantLock;
+
 import static java.lang.Thread.sleep;
 
 /**
@@ -9,9 +14,13 @@ import static java.lang.Thread.sleep;
  * 画出平滑曲线
  */
 public class CpuCurve {
+    private ReentrantLock lock = new ReentrantLock();
     public static void main(String[] args) throws InterruptedException {
         int busyTime = 10;
         CpuCurve.curve();
+
+        ConcurrentHashMap aa = new ConcurrentHashMap();
+
 
 //        while(true){
 //            long startTime = System.currentTimeMillis();
